@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using CloudAdmin.Models;
 using CloudAdmin.DAL;
+using Newtonsoft.Json;
 
 namespace CloudAdmin.Controllers
 {
@@ -18,7 +19,7 @@ namespace CloudAdmin.Controllers
         // GET: /Company/
         public ActionResult Index()
         {
-            return View(db.Companies.ToList());
+            return View();
         }
 
         // GET: /Company/Details/5
@@ -47,7 +48,7 @@ namespace CloudAdmin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="Id,Name")] Company company)
+        public ActionResult Create([Bind(Include = "Id,Name")] Company company)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +80,7 @@ namespace CloudAdmin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="Id,Name")] Company company)
+        public ActionResult Edit([Bind(Include = "Id,Name")] Company company)
         {
             if (ModelState.IsValid)
             {
@@ -123,6 +124,29 @@ namespace CloudAdmin.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        [HttpPost]
+        public ActionResult Find(int id = 0)
+        {
+            if (id == 0) return Json(new { });
+
+            var company = db.Companies.Find(id);
+
+            return Json(new { data = company });
+        }
+
+        [HttpGet]
+        public ActionResult GetCompanies(int id = 0)
+        {
+            var companies = db.Companies.ToList();
+
+            return Json(new { data = companies }, JsonRequestBehavior.AllowGet);
+
+            /*return JsonConvert.SerializeObject(new { companies}, Formatting.Indented,
+                            new JsonSerializerSettings
+                            {
+                                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                            });*/
         }
     }
 }

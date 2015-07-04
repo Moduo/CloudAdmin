@@ -7,7 +7,7 @@ using CloudAdmin.Models;
 
 namespace CloudAdmin.DAL
 {
-    public class ApplicationInitializer : DropCreateDatabaseAlways<ApplicationContext>
+    public class ApplicationInitializer : DropCreateDatabaseIfModelChanges<ApplicationContext>
     {
         protected override void Seed(ApplicationContext context)
         {
