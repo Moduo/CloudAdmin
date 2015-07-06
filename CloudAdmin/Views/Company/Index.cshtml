@@ -6,60 +6,23 @@
 
 <p>
     @Html.ActionLink("Create New", "Create")
+
 </p>
-<table id="company_table" class="table table-striped table-hover" data-order='[[ 0, "asc" ]]' data-page-length='25' ng-controller="CompanyController as controller"></table>
 
-@section Scripts{
-    <script type="text/javascript">
-
-
-        /*=== DataTables ===*/
-        var companyTable = $('#company_table').DataTable({
-            bLengthChange: false,
-            sAjaxSource: '/Company/GetCompanies',
-            columns: [
-                { "data": "Name" }
-
-            ],
-            fnCreatedRow: function (nRow, aData, iDataIndex) {
-                $(nRow).attr('id', aData.Id).attr('ng-click', 'findCompany(' + aData.Id + ')');
-            }
-        });
-
-        $(document).on('click', '#company_table tr[role="row"]', function () {
-            var $this = $(this);
+<div ng-controller="CompanyController as controller">
+    <table id="company_table" class="table table-striped table-hover table-bordered" datatable="ng" dt-options="controller.dtOptions">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="company in controller.companies">
+                <td>{{ company.Id }}</td>
+                <td>{{ company.Name }}</td>
+            </tr>
             
-            
-        });
-
-        /*== AngularJS ===*/
-        app.controller('CompanyController', ['$http', '$scope', function ($http, $scope) {
-            var cont = this;
-            cont.company = [];
-
-            $scope.findCompany = function (id) {
-                console.log(id);
-
-                $http.get('/Company/Find/' + id).
-                    success(function (data, status, headers, config) {
-                        cont.company = data;
-                        console.log(status);
-
-                        var row = $('tr#' + id);
-
-                        if (!row.hasClass('open'))
-                            row.addClass('open');
-                        else
-                            row.removeClass('open');
-                    }).
-                    error(function (data, status, headers, config) {
-                        console.log(status);
-
-                        
-                    });
-            };
-        }]);
-
-
-    </script>
-}
+        </tbody>
+    </table>
+</div>

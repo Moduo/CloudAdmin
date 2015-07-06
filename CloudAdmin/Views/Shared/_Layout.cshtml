@@ -3,12 +3,12 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - CloudAdmin</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <!-- DataTables CSS -->
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.css">
-
+    <link rel="stylesheet" type="text/css" href="~/Content/datatables.bootstrap.min.css">
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -19,7 +19,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", null, new { @class = "navbar-brand" })
+                @Html.ActionLink("CloudAdmin", "Index", "Home", null, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -42,12 +42,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular.min.js"></script>
     <!-- DataTables -->
     <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.js"></script>
-
-    <script type="text/javascript" src="~/Content/js/app.js"></script>
+    <script type="text/javascript" charset="utf8" src="~/Scripts/angular-datatables.min.js"></script>
     <script type="text/javascript">
-        var app = angular.module('cloudadmin', []);
+        var app = angular.module('cloudadmin', ['datatables']);
     </script>
-
+    <script type="text/javascript" src="~/Content/js/controllers.js"></script>
+    <script type="text/javascript" src="~/Content/js/app.js"></script>
         @RenderSection("scripts", required: false)
 </body>
 </html>

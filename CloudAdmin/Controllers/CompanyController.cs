@@ -140,13 +140,7 @@ namespace CloudAdmin.Controllers
         {
             var companies = db.Companies.ToList();
 
-            return Json(new { data = companies }, JsonRequestBehavior.AllowGet);
-
-            /*return JsonConvert.SerializeObject(new { companies}, Formatting.Indented,
-                            new JsonSerializerSettings
-                            {
-                                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                            });*/
+            return Json(new { companies }, JsonRequestBehavior.AllowGet);
         }
     }
 }

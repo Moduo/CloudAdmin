@@ -176,11 +176,14 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\datatables.bootstrap.min.css" />
     <Content Include="Content\js\app.js" />
+    <Content Include="Content\js\controllers.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\angular-datatables.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Properties\PublishProfiles\Default Settings %282%29.pubxml" />
@@ -227,7 +230,7 @@
     <Content Include="Views\Company\Create.cshtml" />
     <Content Include="Views\Company\Delete.cshtml" />
     <Content Include="Views\Company\Details.cshtml" />
-    <Content Include="Views\Company\Edit.cshtml" />
+    <Content Include="Views\Company\_Edit.cshtml" />
     <Content Include="Views\Company\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
