@@ -22,19 +22,14 @@ namespace CloudAdmin.Controllers
             return View();
         }
 
-        // GET: /Company/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Table()
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Company company = db.Companies.Find(id);
-            if (company == null)
-            {
-                return HttpNotFound();
-            }
-            return View(company);
+            return PartialView("_Table");
+        }
+
+        public ActionResult Details()
+        {
+            return PartialView("_Details");
         }
 
         // GET: /Company/Create

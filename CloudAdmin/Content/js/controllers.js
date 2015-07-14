@@ -1,36 +1,48 @@
 ﻿/*== AngularJS Controllers===*/
-app.controller('CompanyController', CompanyController);
-
-function CompanyController($scope, $http, DTOptionsBuilder, DTColumnDefBuilder) {
+function CompanyController($compile, $scope, $http, DTOptionsBuilder, DTColumnDefBuilder) {
     var vm = this;
-
+    
     vm.companies = [];
+    // Array to track the ids of the details displayed rows
+    var detailRows = [];
 
     vm.dtOptions = DTOptionsBuilder.newOptions()
         .withPaginationType('full_numbers')
-        .withOption('rowCallback', rowCallback)
         .withBootstrap();
 
-    vm.toggleCompanyDetails = function (row) {
-        row = $(row);
-        if (!row.hasClass('active')) {
-            row.addClass('active').next('tr.company-details').removeClass('hide');
-        } else {
-            row.removeClass('active').next('tr.company-details').removeClass('hide');
-        }
-    }
+    $scope.$on('event:dataTableLoaded', function (event, loadedDT) {
+        
+        var dt = loadedDT.DataTable;
+        $('#company_table tbody').on('click', 'tr td', function () {
+            var tr = $(this).closest('tr');
+            var row = dt.row(tr);
+            var idx = $.inArray(tr.attr('id'), detailRows);
 
-    function rowCallback(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-        // Unbind first in order to avoid any duplicate handler
-        $('td', nRow).not('.company-details').unbind('click');
-        $('td', nRow).not('.company-details').bind('click', function () {
-            $scope.$apply(function () {
-                vm.toggleCompanyDetails(nRow);
+            if (row.child.isShown()) {
+                tr.removeClass('details');
+                row.child.hide();
+
+                // Remove from the 'open' array
+                detailRows.splice(idx, 1);
+            }
+            else {
+                tr.addClass('details');
+                row.child($compile("<company-details></company-details>")($scope)).show();
+                // Add to the 'open' array
+                if (idx === -1) {
+                    detailRows.push(tr.attr('id'));
+                }
+            }
+        });
+
+        // On each draw, loop over the `detailRows` array and show any child rows
+        dt.on('draw', function () {
+            $.each(detailRows, function (i, id) {
+                $('#' + id + ' td:first-child').trigger('click');
             });
         });
-        return nRow;
-    }
-    
+    });
+
 
     $http.get('/Company/GetCompanies').
             success(function (data, status, headers, config) {

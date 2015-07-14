@@ -9,20 +9,6 @@
 
 </p>
 
-<div ng-controller="CompanyController as controller">
-    <table id="company_table" class="table table-striped table-hover table-bordered" datatable="ng" dt-options="controller.dtOptions">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="company in controller.companies">
-                <td>{{ company.Id }}</td>
-                <td>{{ company.Name }}</td>
-            </tr>
-            
-        </tbody>
-    </table>
-</div>
+<company-table>
+
+</company-table>

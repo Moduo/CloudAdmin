@@ -179,6 +179,7 @@
     <Content Include="Content\datatables.bootstrap.min.css" />
     <Content Include="Content\js\app.js" />
     <Content Include="Content\js\controllers.js" />
+    <Content Include="Content\js\directives.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -229,9 +230,10 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Company\Create.cshtml" />
     <Content Include="Views\Company\Delete.cshtml" />
-    <Content Include="Views\Company\Details.cshtml" />
     <Content Include="Views\Company\_Edit.cshtml" />
     <Content Include="Views\Company\Index.cshtml" />
+    <Content Include="Views\Company\_Table.cshtml" />
+    <Content Include="Views\Company\_Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
